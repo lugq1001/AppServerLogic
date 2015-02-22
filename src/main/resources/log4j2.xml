@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/2002/xmlspec/dtd/2.10/xmlspec.dtd">
+
+<configuration status="off" monitorInterval="1800">
+	<appenders>
+		<!-- 定义控制台输出 -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<!-- <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/> -->
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS}|%-5level|%logger{36}|%msg%n" />
+		</Console>
+		<File name="File" fileName="C:\Users\Administrator\Desktop\AppServerLogic.log">  
+        	<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS}|%-5level|%logger{36}|%msg%n" />  
+    	</File>  
+		
+	</appenders>
+	<loggers>
+		<root level="trace">
+			<appender-ref ref="Console" />
+			<appender-ref ref="File" />
+		</root>
+	</loggers>
+</configuration> 

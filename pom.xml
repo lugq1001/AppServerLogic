@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>logic</artifactId>
+	<version>${project-version}</version>
+	<packaging>war</packaging>
+
+	<name>logic</name>
+	<url>http://maven.apache.org</url>
+
+	<parent>
+		<groupId>com.appserver</groupId>
+		<artifactId>framework</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../framework</relativePath>
+	</parent>
+
+
+	<properties>
+		<mongo-version>2.13.0</mongo-version>
+		<morphia-version>0.110</morphia-version>
+		<jedis-version>2.6.2</jedis-version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.appserver</groupId>
+			<artifactId>common</artifactId>
+			<version>${project-version}</version>
+		</dependency>
+
+		<!-- mongo -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>${mongo-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mongodb.morphia</groupId>
+			<artifactId>morphia</artifactId>
+			<version>${morphia-version}</version>
+		</dependency>
+		
+		<!-- redis -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis-version}</version>
+		</dependency>
+
+	</dependencies>
+
+
+	<build>
+		<finalName>AppServerLogic</finalName>
+	</build>
+</project>

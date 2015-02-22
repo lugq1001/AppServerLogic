@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/2002/xmlspec/dtd/2.10/xmlspec.dtd">
+
+<ServerConfig>
+
+	<name>LogicServer</name>
+	<versionName>1.0</versionName>
+	<versionCode>1</versionCode>
+	<host>127.0.0.1</host>
+	<port>8080</port>
+	<url>/AppServer</url>
+	<transmitKey>12345</transmitKey>
+	<magicKey>12345</magicKey>
+
+	<mongoConfig>
+		<ip>127.0.0.1</ip>
+		<port>27017</port>
+		<dbName>appServer</dbName>
+		<poolSize>10</poolSize>
+		<threadsAllowedToBlockForConnectionMultiplier>5</threadsAllowedToBlockForConnectionMultiplier>
+		<maxWaitTime>120000</maxWaitTime>
+		<connectTimeout>10000</connectTimeout>
+		<socketTimeout>0</socketTimeout>
+		<socketKeepAlive>false</socketKeepAlive>
+	</mongoConfig>
+
+	<redisConfig>
+		<ip>127.0.0.1</ip>
+		<port>6379</port>
+		<maxIdle>10</maxIdle>
+		<maxWaitMillis>10000</maxWaitMillis>
+		<testWhileIdle>true</testWhileIdle>
+		<testOnBorrow>false</testOnBorrow>
+		<testOnReturn>false</testOnReturn>
+	</redisConfig>
+
+</ServerConfig>
