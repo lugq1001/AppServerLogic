@@ -2,19 +2,16 @@ package com.appserver.logic.handler;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.appserver.common.network.BaseRequest;
+import com.appserver.common.annotation.LogicHandler;
 import com.appserver.common.network.BaseResponse;
 import com.appserver.common.network.MessageID;
 import com.appserver.common.network.SBMessage;
-import com.appserver.common.util.LangUtil;
+import com.appserver.common.network.SBMessageFile;
 import com.appserver.logic.config.MessageLoader;
 import com.appserver.logic.entity.User;
 import com.appserver.logic.helper.LogicHelper;
-import com.appserver.logic.helper.annotation.LogicHandler;
 
 
 @LogicHandler(id = MessageID.TEST, desc = "测试")
@@ -27,14 +24,14 @@ public class TestHandler extends ServerHandler {
 		try {
 			logger.debug("-测试(logic)-");
 			logger.debug("-测试(logic)-请求数据：" + message.getReq_data());
-			TestRequest req = objMapper.readValue(message.getReq_data(), TestRequest.class);
-			String userSid = req.userSid;
-			List<String> filePaths = req.filePaths;
-			if (LangUtil.isEmpty(filePaths)) {
+			//TestRequest req = objMapper.readValue(message.getReq_data(), TestRequest.class);
+			String userSid = message.getReq_uid();
+			ArrayList<SBMessageFile> files = message.getFiles();
+			/*if (LangUtil.isEmpty(files)) {
 				logger.debug("-测试(logic)-文件为空");
-				sendFailureResp(message, TestResult.FailureFileMax);
+				sendFailureResp(message, TestResult.FailureFileNone);
 				return;
-			}
+			}*/
 			
 			User u = User.findBySid(userSid);
 			if (u == null) {
@@ -43,13 +40,13 @@ public class TestHandler extends ServerHandler {
 				return;
 			}
 			
-			u.setAvatar(filePaths.get(0));
+			u.setAvatar(files.get(0).getFilePath());
 			u.save();
 			logger.debug("-测试(logic)-更新用户头像成功");
 			TestResponse resp = new TestResponse(TestResult.Success.ordinal(), MessageLoader.load(TestResult.Success.i18nCode));
 			resp.userSid = userSid;
-			for (String path : filePaths) {
-				path = LogicHelper.downloadPathPrefix() + path;
+			for (SBMessageFile f : files) {
+				String path = LogicHelper.fileDownloadUrl(f.getFilePath());
 				resp.filePaths.add(path);
 				logger.debug("-头像下载路径-" + path);
 			}
@@ -59,12 +56,6 @@ public class TestHandler extends ServerHandler {
 			logger.error("-测试(logic)-(文件上传) 失败:" + e.getLocalizedMessage());
 			sendFailureResp(message, TestResult.Failure);
 		}
-	}
-	
-	private static class TestRequest extends BaseRequest {
-		
-		public String userSid;
-		public List<String> filePaths = new ArrayList<String>();
 	}
 	
 	private enum TestResult {

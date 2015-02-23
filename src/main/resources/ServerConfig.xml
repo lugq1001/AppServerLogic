@@ -3,14 +3,21 @@
 
 <ServerConfig>
 
-	<name>LogicServer</name>
-	<versionName>1.0</versionName>
-	<versionCode>1</versionCode>
-	<host>127.0.0.1</host>
-	<port>8080</port>
-	<url>/AppServer</url>
+	<!-- <name>LogicServer</name> -->
+	<!-- <versionName>1.0</versionName> -->
+	<!-- <versionCode>1</versionCode> -->
+	<!-- <host>127.0.0.1</host> -->
+	<!-- <port>8080</port> -->
+	<!-- <url>/AppServerLogic</url> -->
 	<transmitKey>12345</transmitKey>
 	<magicKey>12345</magicKey>
+	<downloadUrlPrefix>http://192.169.1.95:8080/</downloadUrlPrefix>
+
+	<fileServer>
+		<host>127.0.0.1</host>
+		<port>8080</port>
+		<path>/file/main</path>
+	</fileServer>
 
 	<mongoConfig>
 		<ip>127.0.0.1</ip>

@@ -25,13 +25,13 @@ public abstract class ServerHandler {
 	
 	public void process(SBMessage message) {
 		StringBufferLine logBuffer = new StringBufferLine();
-		logBuffer.append("\n*************************** AppServerHandler process start *********************************************************");
+		logBuffer.append("\n*************************** LogicServerHandler process start *********************************************************");
 		long time = System.currentTimeMillis();
 		logBuffer.append("== reqid(" + message.getReq_id() + ") logic process start ==");
 		logicProcess(message);
 		long interval = System.currentTimeMillis() - time;
-		logBuffer.append("== reqid(" + message.getReq_id() + ") completed with logicProcess in " + interval + " ms. ==");
-		logBuffer.append("***************************** AppServerHandler process end *******************************************************");
+		logBuffer.append("== reqid(" + message.getReq_id() + ") completed with logic process in " + interval + " ms. ==");
+		logBuffer.append("***************************** LogicServerHandler process end *******************************************************");
 		logger.info(logBuffer.toString());
 	}
 	

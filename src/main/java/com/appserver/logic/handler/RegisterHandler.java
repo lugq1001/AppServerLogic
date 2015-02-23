@@ -3,6 +3,7 @@ package com.appserver.logic.handler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.appserver.common.annotation.LogicHandler;
 import com.appserver.common.network.BaseRequest;
 import com.appserver.common.network.BaseResponse;
 import com.appserver.common.network.MessageID;
@@ -12,7 +13,6 @@ import com.appserver.common.util.MD5Util;
 import com.appserver.logic.config.MessageLoader;
 import com.appserver.logic.config.ServerConfig;
 import com.appserver.logic.entity.User;
-import com.appserver.logic.helper.annotation.LogicHandler;
 
 
 @LogicHandler(desc = "用户注册接口", id = MessageID.USR_REGISTER)

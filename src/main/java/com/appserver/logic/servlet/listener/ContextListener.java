@@ -14,7 +14,7 @@ import com.appserver.logic.config.ServerConfig;
 import com.appserver.logic.dao.redis.RedisManager;
 import com.appserver.logic.entity.Sid;
 import com.appserver.logic.entity.Sid.EntitySeq;
-import com.appserver.logic.helper.annotation.AnnotationManager;
+import com.appserver.logic.helper.AnnotationManager;
 
 
 @WebListener
@@ -60,7 +60,7 @@ public class ContextListener implements ServletContextListener {
 		logger.info("===============================================");
 		logger.info("==   *************************************   ==");
 		logger.info("==   *****                           *****   ==");
-		logger.info("==   *****     Server Started        *****   ==");
+		logger.info("==   *****   Logic Server Started    *****   ==");
 		logger.info("==   *****                           *****   ==");
 		logger.info("==   *************************************   ==");
 		logger.info("===============================================");

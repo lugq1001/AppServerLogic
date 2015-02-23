@@ -1,5 +1,6 @@
 package com.appserver.logic.servlet;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -13,18 +14,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.appserver.common.Constant;
 import com.appserver.common.network.SBMessage;
+import com.appserver.common.network.SBMessageFile;
 import com.appserver.common.util.LangUtil;
 import com.appserver.logic.handler.ServerHandler;
-import com.appserver.logic.helper.annotation.AnnotationManager;
+import com.appserver.logic.helper.AnnotationManager;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-@WebServlet(name = "LogicServlet", urlPatterns = "/logic")
+@WebServlet(name = "LogicServlet", urlPatterns = "/main")
 public class LogicServlet extends HttpServlet {
 
 	private static Logger logger = LogManager.getLogger(LogicServlet.class);
 	private static final long serialVersionUID = 1L;
-	private static final String BAD_ACCESS = "bad access";
 	
 	// 限制访问频率 500次每分钟
 	private static Map<String, Integer> reqFrequencyMap = new HashMap<String, Integer>();
@@ -45,18 +49,26 @@ public class LogicServlet extends HttpServlet {
 			if (LangUtil.isEmpty(req.getParameter("tkey"))) {
 				// 客户端请求，频率拦截
 				if (!accessFrequencyFilter(req.getRemoteAddr())) {
-					resp.getWriter().write(BAD_ACCESS);
+					resp.getWriter().write(Constant.BAD_ACCESS);
 					return;
 				}
-			}
+			} 
+			
 			
 			int reqid = Integer.parseInt(req.getParameter("rid"));
 			String uid = req.getParameter("uid");
 			String data = req.getParameter("data");
 			if (LangUtil.isEmpty(data)) {
 				logger.debug("请求失败:参数错误");
-				message.send(BAD_ACCESS);
+				message.send(Constant.BAD_ACCESS);
 				return;
+			}
+			String filejson = req.getParameter("files");
+			if (!LangUtil.isEmpty(filejson)) {
+				ObjectMapper mapper = new ObjectMapper(); 
+				JavaType type = mapper.getTypeFactory().constructCollectionType(ArrayList.class, SBMessageFile.class);
+				ArrayList<SBMessageFile> files = mapper.readValue(filejson, type);
+				message.setFiles(files);
 			}
 			
 			message.setReq_data(data);
@@ -69,12 +81,12 @@ public class LogicServlet extends HttpServlet {
 			} else {
 				// 无效请求
 				logger.debug("请求失败:参数错误");
-				message.send(BAD_ACCESS);
+				message.send(Constant.BAD_ACCESS);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("请求失败:" + e.getMessage());
-			message.send(BAD_ACCESS);
+			message.send(Constant.BAD_ACCESS);
 		}
 	}
 	

@@ -1,4 +1,4 @@
-package com.appserver.logic.helper.annotation;
+package com.appserver.logic.helper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.appserver.common.annotation.LogicHandler;
 import com.appserver.common.util.PackageUtil;
 import com.appserver.logic.handler.ServerHandler;
 
@@ -54,7 +55,6 @@ public class AnnotationManager {
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				
 				e.printStackTrace();
 			}
 		}

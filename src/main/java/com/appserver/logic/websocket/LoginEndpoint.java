@@ -1,4 +1,4 @@
-package com.appserver.logic.endpoint;
+package com.appserver.logic.websocket;
 
 import java.io.IOException;
 import java.util.Collections;

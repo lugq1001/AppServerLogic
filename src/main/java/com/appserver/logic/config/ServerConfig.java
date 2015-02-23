@@ -23,29 +23,34 @@ public class ServerConfig {
 
 	private static Logger logger = LogManager.getLogger(ServerConfig.class);
 	
-	@JacksonXmlProperty(localName = "name")
+	/*@JacksonXmlProperty(localName = "name")
 	private String name = "";
 	
 	@JacksonXmlProperty(localName = "versionName")
 	private String verName = "1.0";
 	
 	@JacksonXmlProperty(localName = "versionCode")
-	private int verCode = 1;
+	private int verCode = 1;*/
 	
-	@JacksonXmlProperty(localName = "host")
-	private String host = "";
+	/*@JacksonXmlProperty(localName = "host")
+	private String host = "";*/
 	
-	@JacksonXmlProperty(localName = "port")
-	private int port = 8080;
+	/*@JacksonXmlProperty(localName = "port")
+	private int port = 8080;*/
 	
-	@JacksonXmlProperty(localName = "url")
-	private String url = "AppServer/";
+	/*@JacksonXmlProperty(localName = "url")
+	private String url = "AppServer/";*/
 	
 	@JacksonXmlProperty(localName = "transmitKey")
 	private String transmitKey = "";
 	
 	@JacksonXmlProperty(localName = "magicKey")
 	private String magicKey = "";
+	
+	@JacksonXmlProperty(localName = "downloadUrlPrefix")
+	private String downloadUrlPrefix = "";
+	
+	private FileServer fileServer = new FileServer();
 	
 	// mongo配置
 	private MongoConfig mongoConfig = new MongoConfig();
@@ -79,14 +84,19 @@ public class ServerConfig {
 			XmlMapper mapper = new XmlMapper();
 			config = mapper.readValue(xml, ServerConfig.class);
 			logger.info("===========ServerConfig================");
-			logger.info("name:" + config.getName());
-			logger.info("verName:" + config.getVerName());
-			logger.info("verCode:" + config.getVerCode());
-			logger.info("host:" + config.getHost());
-			logger.info("port:" + config.getPort());
-			logger.info("url:" + config.getUrl());
+			//logger.info("name:" + config.getName());
+			//logger.info("verName:" + config.getVerName());
+			//logger.info("verCode:" + config.getVerCode());
+			//logger.info("host:" + config.getHost());
+			//logger.info("port:" + config.getPort());
+			//logger.info("url:" + config.getUrl());
+			FileServer file = config.getFileServer();
 			logger.info("transmitKey:" + config.getTransmitKey());
 			logger.info("magicKey:" + config.getMagicKey());
+			logger.info("fileServerHost:" + file.getHost());
+			logger.info("fileServerPort:" + file.getPort());
+			logger.info("fileServerPath:" + file.getPath());
+			logger.info("downloadUrlPrefix:" + config.getDownloadUrlPrefix());
 			logger.info("===========MongoConfig=================");
 			MongoConfig mongoConfig = config.getMongoConfig();
 			logger.info("ip:" + mongoConfig.getIp());
@@ -132,54 +142,6 @@ public class ServerConfig {
 		this.redisConfig = redisConfig;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getVerName() {
-		return verName;
-	}
-
-	public void setVerName(String verName) {
-		this.verName = verName;
-	}
-
-	public int getVerCode() {
-		return verCode;
-	}
-
-	public void setVerCode(int verCode) {
-		this.verCode = verCode;
-	}
-
-	public String getHost() {
-		return host;
-	}
-
-	public void setHost(String host) {
-		this.host = host;
-	}
-
-	public int getPort() {
-		return port;
-	}
-
-	public void setPort(int port) {
-		this.port = port;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
 	public String getTransmitKey() {
 		return transmitKey;
 	}
@@ -194,6 +156,22 @@ public class ServerConfig {
 
 	public void setMagicKey(String magicKey) {
 		this.magicKey = magicKey;
+	}
+
+	public FileServer getFileServer() {
+		return fileServer;
+	}
+
+	public void setFileServer(FileServer fileServer) {
+		this.fileServer = fileServer;
+	}
+
+	public String getDownloadUrlPrefix() {
+		return downloadUrlPrefix;
+	}
+
+	public void setDownloadUrlPrefix(String downloadUrlPrefix) {
+		this.downloadUrlPrefix = downloadUrlPrefix;
 	}
 
 	
