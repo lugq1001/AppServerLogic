@@ -13,11 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.appserver.common.network.BaseResponse;
-import com.appserver.common.network.BaseResult;
 import com.appserver.common.network.SBMessage;
 import com.appserver.common.util.LangUtil;
-import com.appserver.logic.config.MessageLoader;
 import com.appserver.logic.handler.ServerHandler;
 import com.appserver.logic.helper.annotation.AnnotationManager;
 
@@ -27,6 +24,7 @@ public class LogicServlet extends HttpServlet {
 
 	private static Logger logger = LogManager.getLogger(LogicServlet.class);
 	private static final long serialVersionUID = 1L;
+	private static final String BAD_ACCESS = "bad access";
 	
 	// 限制访问频率 500次每分钟
 	private static Map<String, Integer> reqFrequencyMap = new HashMap<String, Integer>();
@@ -47,7 +45,7 @@ public class LogicServlet extends HttpServlet {
 			if (LangUtil.isEmpty(req.getParameter("tkey"))) {
 				// 客户端请求，频率拦截
 				if (!accessFrequencyFilter(req.getRemoteAddr())) {
-					resp.getWriter().write("Access too frequently");
+					resp.getWriter().write(BAD_ACCESS);
 					return;
 				}
 			}
@@ -57,8 +55,7 @@ public class LogicServlet extends HttpServlet {
 			String data = req.getParameter("data");
 			if (LangUtil.isEmpty(data)) {
 				logger.debug("请求失败:参数错误");
-				BaseResponse response = new BaseResponse(BaseResult.Failure.ordinal(), MessageLoader.load(BaseResult.Failure.i18nCode));
-				message.send(response);
+				message.send(BAD_ACCESS);
 				return;
 			}
 			
@@ -72,14 +69,12 @@ public class LogicServlet extends HttpServlet {
 			} else {
 				// 无效请求
 				logger.debug("请求失败:参数错误");
-				BaseResponse response = new BaseResponse(BaseResult.Failure.ordinal(), MessageLoader.load(BaseResult.Failure.i18nCode));
-				message.send(response);
+				message.send(BAD_ACCESS);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("请求失败:" + e.getMessage());
-			BaseResponse response = new BaseResponse(BaseResult.Failure.ordinal(), MessageLoader.load(BaseResult.Failure.i18nCode));
-			message.send(response);
+			message.send(BAD_ACCESS);
 		}
 	}
 	
@@ -108,7 +103,6 @@ public class LogicServlet extends HttpServlet {
 		public void run() {
 			reqFrequencyMap.clear();
 		}
-
 	}
 
 }

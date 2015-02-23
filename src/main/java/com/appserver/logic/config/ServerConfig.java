@@ -82,11 +82,11 @@ public class ServerConfig {
 			logger.info("name:" + config.getName());
 			logger.info("verName:" + config.getVerName());
 			logger.info("verCode:" + config.getVerCode());
-			logger.info("host:" + config.getVerCode());
-			logger.info("port:" + config.getVerCode());
-			logger.info("url:" + config.getVerCode());
-			logger.info("transmitKey:" + config.getVerCode());
-			logger.info("magicKey:" + config.getVerCode());
+			logger.info("host:" + config.getHost());
+			logger.info("port:" + config.getPort());
+			logger.info("url:" + config.getUrl());
+			logger.info("transmitKey:" + config.getTransmitKey());
+			logger.info("magicKey:" + config.getMagicKey());
 			logger.info("===========MongoConfig=================");
 			MongoConfig mongoConfig = config.getMongoConfig();
 			logger.info("ip:" + mongoConfig.getIp());

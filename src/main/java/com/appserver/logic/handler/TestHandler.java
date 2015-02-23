@@ -53,15 +53,12 @@ public class TestHandler extends ServerHandler {
 				resp.filePaths.add(path);
 				logger.debug("-头像下载路径-" + path);
 			}
-			message.send(resp);
+			message.send(respString(resp));
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("-测试(logic)-(文件上传) 失败:" + e.getLocalizedMessage());
+			logger.error("-测试(logic)-(文件上传) 失败:" + e.getLocalizedMessage());
 			sendFailureResp(message, TestResult.Failure);
 		}
-		
-		
-		
 	}
 	
 	private static class TestRequest extends BaseRequest {
@@ -86,7 +83,7 @@ public class TestHandler extends ServerHandler {
 	
 	private void sendFailureResp(SBMessage message, TestResult result) {
 		TestResponse resp = new TestResponse(result.ordinal(), MessageLoader.load(result.i18nCode));
-		message.send(resp);
+		message.send(respString(resp));
 	}
 
 	public class TestResponse extends BaseResponse {

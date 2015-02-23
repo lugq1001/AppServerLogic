@@ -2,8 +2,11 @@ package com.appserver.logic.handler;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.appserver.common.network.BaseResponse;
 import com.appserver.common.network.SBMessage;
 import com.appserver.common.util.StringBufferLine;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -32,6 +35,16 @@ public abstract class ServerHandler {
 		logger.info(logBuffer.toString());
 	}
 	
+	protected String respString(BaseResponse resp) {
+		String json = "";
+		try {
+			json = objMapper.writeValueAsString(resp);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			logger.info("make respString failure:" + e.getLocalizedMessage());
+		}
+		return json;
+	}
 	
 	
 }

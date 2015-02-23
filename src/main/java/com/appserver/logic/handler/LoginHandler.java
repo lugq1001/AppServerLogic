@@ -73,11 +73,11 @@ public class LoginHandler extends ServerHandler {
 			LoginResult result = LoginResult.Success;
 			LoginResponse resp = new LoginResponse(result.ordinal(), MessageLoader.load(result.i18nCode));
 			resp.user = u;
-			message.send(resp);
-			logger.debug("-登录成功-" + u.toString());
+			message.send(respString(resp));
+			logger.info("-登录成功-" + u.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("-登录失败-" + e.getLocalizedMessage());
+			logger.error("-登录失败-" + e.getLocalizedMessage());
 			sendFailureResp(message, LoginResult.Failure);
 		}
 	}
@@ -101,7 +101,7 @@ public class LoginHandler extends ServerHandler {
 
 	private void sendFailureResp(SBMessage message, LoginResult result) {
 		LoginResponse resp = new LoginResponse(result.ordinal(), MessageLoader.load(result.i18nCode));
-		message.send(resp);
+		message.send(respString(resp));
 	}
 
 	private enum LoginResult {
@@ -118,7 +118,7 @@ public class LoginHandler extends ServerHandler {
 		}
 	}
 
-
+	
 
 	
 

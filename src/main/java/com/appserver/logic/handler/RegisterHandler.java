@@ -76,11 +76,11 @@ public class RegisterHandler extends ServerHandler {
 			RegisterResult result = RegisterResult.Success;
 			RegisterResponse resp = new RegisterResponse(result.ordinal(), MessageLoader.load(result.i18nCode));
 			resp.user = u;
-			message.send(resp);
-			logger.debug("-注册成功-" + u.toString());
+			message.send(respString(resp));
+			logger.info("-注册成功-" + u.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("-注册失败-" + e.getLocalizedMessage());
+			logger.error("-注册失败-" + e.getLocalizedMessage());
 			sendFailureResp(message, RegisterResult.Failure);
 		}
 	}
@@ -104,7 +104,7 @@ public class RegisterHandler extends ServerHandler {
 	
 	private void sendFailureResp(SBMessage message, RegisterResult result) {
 		RegisterResponse resp = new RegisterResponse(result.ordinal(), MessageLoader.load(result.i18nCode));
-		message.send(resp);
+		message.send(respString(resp));
 	}
 
 	private enum RegisterResult {
