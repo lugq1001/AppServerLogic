@@ -13,7 +13,7 @@
 		<groupId>com.appserver</groupId>
 		<artifactId>framework</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../framework</relativePath>
+		<relativePath>../AppServerFramework</relativePath>
 	</parent>
 
 
