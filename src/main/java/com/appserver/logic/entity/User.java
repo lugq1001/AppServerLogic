@@ -1,11 +1,9 @@
 package com.appserver.logic.entity;
 
 import java.util.List;
-
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.query.Query;
-
 import com.appserver.logic.dao.mongo.MongoDao;
 import com.appserver.logic.dao.mongo.MongoManager;
 import com.appserver.logic.entity.Sid.EntitySeq;

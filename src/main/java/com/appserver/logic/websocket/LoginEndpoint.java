@@ -23,7 +23,7 @@ public class LoginEndpoint {
     public String onMessage(String message, Session session) {
 		System.out.println(message);
 		try {
-			session.getBasicRemote().sendText("1231231231");
+			session.getBasicRemote().sendText(message);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,7 +36,7 @@ public class LoginEndpoint {
 		onlineSessions.add(session);
 		System.out.println("session onOpen");
 		try {
-			session.getBasicRemote().sendText("阿萨德");
+			session.getBasicRemote().sendText("ok");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
